@@ -62,7 +62,7 @@ class Permission extends Resource
      */
     public static function availableForNavigation(Request $request)
     {
-        if (!config('nova_permission.show_roles_in_navigation'))
+        if (!config('nova_permission.show_permissions_in_navigation'))
             return false;
         else
             return Gate::allows('viewAny', app(PermissionRegistrar::class)->getPermissionClass());

@@ -31,13 +31,16 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "repositories": [{
-        "type": "package",
-	"version": "2.0.0",
+    "repositories": [
+        {
+            "packagist.org": true,
+            "type": "package",
+            "version": "2.7.2",
             "source": {
-            	"url": "https://github.com/dytechltd/nova-permission.git",
+                "url": "https://github.com/dytechltd/nova-permission.git",
                 "type": "git",
                 "reference": "master"
-         }
-    }]
+            }
+        }
+    ]
 }
