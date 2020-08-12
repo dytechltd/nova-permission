@@ -39,8 +39,6 @@ class Role extends Resource
         'name',
     ];
 
-    public static $displayInNavigation = false;
-
     public static function getModel()
     {
         return app(PermissionRegistrar::class)->getRoleClass();
@@ -64,7 +62,10 @@ class Role extends Resource
      */
     public static function availableForNavigation(Request $request)
     {
-        return Gate::allows('viewAny', app(PermissionRegistrar::class)->getRoleClass());
+        if (! config('nova_permission.show_roles_in_navigation'))
+            return false;
+        else
+            return Gate::allows('viewAny', app(PermissionRegistrar::class)->getRoleClass());
     }
 
     public static function label()

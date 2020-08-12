@@ -62,7 +62,10 @@ class Permission extends Resource
      */
     public static function availableForNavigation(Request $request)
     {
-        return Gate::allows('viewAny', app(PermissionRegistrar::class)->getPermissionClass());
+        if (!config('nova_permission.show_roles_in_navigation'))
+            return false;
+        else
+            return Gate::allows('viewAny', app(PermissionRegistrar::class)->getPermissionClass());
     }
 
     public static function label()
@@ -94,11 +97,11 @@ class Permission extends Resource
 
             Text::make(__('nova-permission-tool::permissions.name'), 'name')
                 ->rules(['required', 'string', 'max:255'])
-                ->creationRules('unique:'.config('permission.table_names.permissions'))
-                ->updateRules('unique:'.config('permission.table_names.permissions').',name,{{resourceId}}'),
+                ->creationRules('unique:' . config('permission.table_names.permissions'))
+                ->updateRules('unique:' . config('permission.table_names.permissions') . ',name,{{resourceId}}'),
 
             Text::make(__('nova-permission-tool::permissions.display_name'), function () {
-                return __('nova-permission-tool::permissions.display_names.'.$this->name);
+                return __('nova-permission-tool::permissions.display_names.' . $this->name);
             })->canSee(function () {
                 return is_array(__('nova-permission-tool::permissions.display_names'));
             }),
