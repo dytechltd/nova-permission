@@ -39,6 +39,8 @@ class Role extends Resource
         'name',
     ];
 
+    public static $displayInNavigation = false;
+
     public static function getModel()
     {
         return app(PermissionRegistrar::class)->getRoleClass();
@@ -106,6 +108,9 @@ class Role extends Resource
 
             PermissionBooleanGroup::make(__('nova-permission-tool::roles.permissions'), 'permissions'),
 
+            // BelongsToMany::make(Permission::label(), 'permissions', Permission::class)
+            //     ->searchable()
+            //     ->singularLabel(Permission::singularLabel()),
             MorphToMany::make($userResource::label(), 'users', $userResource)
                 ->searchable()
                 ->singularLabel($userResource::singularLabel()),
